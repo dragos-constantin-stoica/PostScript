@@ -1,0 +1,59 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 5 5 400 600
+%%LanguageLevel: 2
+
+%This is an attempt to produce an 2D tile
+%based on filled triangles
+%The tile may be rotated with 90 degres
+
+
+/s1{
+  gsave
+  1.1 0.1 1.6 4.8 rectfill
+  grestore
+  %stroke
+}def
+
+/s2{
+  gsave
+  0.1 0.1 2.5 4.8 rectstroke
+  grestore
+  %stroke
+}def
+
+/sym [  //s2 //s1 ] def
+/range sym length def
+/rNum {rand range mod} def
+
+/drawsym {
+    /k exch def
+    sym k get exec
+}def
+
+%Initial setup
+5 5 scale
+0.1 setlinewidth
+3 3 translate
+
+%Start drawing
+
+%horizontal boxes >> 15
+%veritcal boxes >> 22
+
+23 {
+
+  0 1 24 {
+    % select a random symbol to be drawn
+    % /i exch def
+    % i drawsym
+	rNum drawsym
+    3 0 translate
+  } for
+
+  %go up one row
+  -75 5 translate
+} repeat
+
+
+showpage
+%%EOF

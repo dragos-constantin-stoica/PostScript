@@ -1,0 +1,59 @@
+%!PS
+
+% Let the printer compute the primes...
+
+/max 10000 def % primes from 2 to max
+
+% Paper size (letter)
+/paperx 8.5 72 mul def
+/papery 11  72 mul def
+/marginx .5 72 mul def
+/marginy marginx def
+/fsize 9 def % font size
+/Courrier-bold findfont fsize scalefont setfont % assume fixed font
+
+/n 1 def
+/max max 1 max 2 mod sub sub def % max is now odd
+/lmax max log ceiling cvi def
+/buf lmax string def
+/nb paperx marginx 2 mul sub (0) stringwidth pop lmax 1 add mul dup /tmp exch def div floor cvi dup 10 gt {dup 10 mod sub} if def % number of primes per line
+
+/x0 paperx tmp nb mul sub 2 div def
+/y0 papery marginy sub fsize sub def
+/y y0 def
+
+/aff {
+  dup log ceiling cvi lmax exch sub {( ) show} repeat
+  buf cvs show
+  ( ) show
+} bind def
+  
+newpath
+x0 y moveto
+
+2 aff
+3 2 max {
+  /prime? true def
+  dup sqrt 3 exch 2 exch {
+    2 copy mod exch pop 0 eq {
+      /prime? false def
+      pop
+      exit
+    } if
+  } for
+  prime? {
+    aff
+    /n n 1 add def
+    n nb eq {
+      /n 0 def
+      /y y fsize sub def
+      y marginy lt {
+        showpage
+        /y y0 def
+      } if
+      x0 y moveto
+    } if
+  } if
+} for
+
+showpage

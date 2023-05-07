@@ -1,0 +1,38 @@
+%!PS
+% (c) Stijn van Dongen.
+
+0.2 setgray
+0 setlinewidth
+/gridunit   10    def       % length of triangle side.
+/angle      0     def       % angle with baseline.
+                            % 0 makes normal baseline a direction of grid,
+                            % 30 makes vertical a direction of grid.
+
+2.845 2.845 scale
+
+/step gridunit 0.866025 mul def     % that's 1/2 * sqrt(3)
+
+newpath
+5 5 moveto
+205 5 lineto
+205 292 lineto
+5 292 lineto
+closepath clip newpath
+
+105 149 translate
+
+angle rotate
+
+3
+{  -183 step div floor step mul     % make sure we hit the origin, i.e. (0,0).
+   step
+   183
+   {  -183 exch moveto 366 0 rlineto
+   }
+   for
+   120 rotate
+}
+repeat
+
+stroke showpage
+

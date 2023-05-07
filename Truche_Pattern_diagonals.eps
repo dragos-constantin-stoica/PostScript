@@ -1,0 +1,61 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 5 5 400 600
+%%LanguageLevel: 2
+
+%This is an attempt to produce an 2D tile
+%based on empty square, filled square,
+%a square filled with a quarter of a circle
+%and a square filled with the complement of a
+%square of a circle
+%The tiles may be rotated with 90 degres
+
+/q1{
+    gsave
+     0 0 moveto
+     5 5 lineto
+     stroke
+     grestore
+}def
+
+/q2{
+  gsave
+  5 0 translate 90 rotate q1
+  grestore
+}def
+
+/sym [ //q2 //q1 ] def
+/range sym length def
+/rNum {rand range mod} def
+
+/drawsym {
+    /k exch def
+    sym k get exec
+}def
+
+%Initial setup
+5 5 scale
+0.3 setlinewidth
+2 2 translate
+
+%Start drawing
+
+%horizontal boxes >> 15
+%veritcal boxes >> 22
+
+31 {
+
+  0 1 22 {
+    % select a random symbol to be drawn
+    % /i exch def
+    % i drawsym
+	rNum drawsym
+    5 0 translate
+  } for
+
+  %go up one row
+  -115 5 translate
+} repeat
+
+
+showpage
+%%EOF
